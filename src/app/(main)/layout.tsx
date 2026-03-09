@@ -1,5 +1,5 @@
-import Footer from "@/components/Footer/page";
 import Navbar from "@/components/Navbar/page";
+// import Footer from "@/components/Footer/page";
 
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
@@ -7,7 +7,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     <>
       <Navbar />
       {children}
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }
