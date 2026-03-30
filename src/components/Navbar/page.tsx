@@ -4,9 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, Globe, ChevronDown, Check, User } from "lucide-react";
-import logoWhite from "../../../public/images/logoWhite.png";
-import logo from "../../../public/images/logonav.png";
-import logoRounded from "../../../public/images/logoRoundedFavicon.png";
+
 import Image from "next/image";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
@@ -104,18 +102,14 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed w-full z-60 transition-all duration-300 ${
-        scrolled ? "bg-white shadow-md py-3" : "bg-transparent py-5"
+        scrolled ? "bg-white shadow-md py-3" : "bg-gray-500 py-5"
       }`}
     >
       <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center">
           {/* <img src={logo} alt="Long Vacation Logo" /> */}
-          <Image src={pathname === "/contact" ? logoRounded : scrolled? logo : logoWhite} alt="long vacation logo" width={120} height={40} className={
-    pathname === "/contact"
-      ? "w-20 h-14"    // 👈 Tailwind size for logoRounded
-      : "w-30 h-auto"    // default sizes
-  }/>
+          <p>logo</p>
         </Link>
 
         {/* Desktop Menu */}
