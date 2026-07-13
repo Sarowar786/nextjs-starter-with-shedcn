@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import {
   Sidebar,
@@ -26,6 +26,10 @@ import {
   User,
   LogOut,
 } from "lucide-react";
+import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+import { logout } from "@/redux/features/authSlice";
+import { Button } from "../ui/button";
 
 // 🔥 MENU CONFIG (clean & scalable)
 const menuItems = [
@@ -56,14 +60,19 @@ const menuItems = [
   },
 ];
 
-export function AppSidebar(
-  props: React.ComponentProps<typeof Sidebar>
-) {
+export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleLogOut = () => {
+    dispatch(logout());
+    toast.success("Logged out successfully");
+    router.push("/");
+  };
 
   return (
     <Sidebar {...props}>
-
       {/* ================= HEADER ================= */}
       <SidebarHeader>
         <div className="px-2 py-4">
@@ -106,10 +115,10 @@ export function AppSidebar(
       {/* ================= FOOTER ================= */}
       <SidebarFooter>
         <div className="p-3">
-          <button className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-500 hover:bg-red-50 transition">
+          <Button onClick={handleLogOut} className="w-full flex items-center gap-3 px-3 py-2 bg-red-200/30 rounded-lg text-sm text-red-500 hover:bg-red-50 transition">
             <LogOut className="w-4 h-4" />
             Logout
-          </button>
+          </Button>
         </div>
       </SidebarFooter>
 
