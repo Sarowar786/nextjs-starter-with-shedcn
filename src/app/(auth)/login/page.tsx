@@ -5,13 +5,13 @@ import Image from "next/image";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import leftimage from "../../../../public/images/company-logo.png";
 import logo from "../../../../public/images/logonav.png";
 import { useLoginMutation } from "@/redux/api/authApi";
 import { useDispatch } from "react-redux";
 import { setRefreshToken, setUser } from "@/redux/features/authSlice";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 // ✅ 1) Zod schema: rules এখানে define হবে
 const loginSchema = z.object({
@@ -27,7 +27,6 @@ const loginSchema = z.object({
 });
 
 export default function LoginPage() {
-  // ✅ 3) useForm সেটআপ + zodResolver
   const {
     register,
     handleSubmit,
@@ -49,7 +48,7 @@ export default function LoginPage() {
 
   const onSubmit = async (data: FieldValues) => {
     const payload = {
-      identifier: String(data.email).trim(),
+      email: String(data.email).trim(),
       password: String(data.password),
     };
     console.log("payload", payload);
@@ -61,17 +60,7 @@ export default function LoginPage() {
       if (response.success && response?.data?.access) {
         dispatch(setUser({ token: response.data.access }));
         dispatch(setRefreshToken({ refresh_token: response.data.refresh }));
-        toast.success("Login Successfull", {
-          style: {
-            background: "#1AC19C",
-            color: "#fff",
-            border: "1px solid #F97316",
-          },
-          iconTheme: {
-            primary: "#F97316",
-            secondary: "#111827",
-          },
-        });
+        toast.success("Login Successfull");
 
         router.push(callbackUrl);
         return;
@@ -153,7 +142,7 @@ export default function LoginPage() {
                 type="email"
                 placeholder="Enter your email"
                 className={`mt-1 w-full rounded-lg border px-4 py-3 text-sm outline-none transition
-                  ${errors.email ? "border-red-500" : "border-gray-200 focus:border-orange-500"}
+                  ${errors.email ? "border-red-500" : "border-gray-200 focus:border-primary"}
                 `}
                 {...register("email")}
               />
@@ -171,7 +160,7 @@ export default function LoginPage() {
                 type="password"
                 placeholder="Enter your password"
                 className={`mt-1 w-full rounded-lg border px-4 py-3 text-sm outline-none transition
-                  ${errors.password ? "border-red-500" : "border-gray-200 focus:border-orange-500"}
+                  ${errors.password ? "border-red-500" : "border-gray-200 focus:border-primary"}
                 `}
                 {...register("password")}
               />
@@ -192,13 +181,13 @@ export default function LoginPage() {
             </div>
 
             {/* Login button */}
-            <button
+            <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full rounded-lg bg-orange-500 hover:bg-orange-600 transition text-white font-semibold py-3 disabled:opacity-60"
+              className="w-full rounded-lg disabled:opacity-60"
             >
               {isSubmitting ? "Logging in..." : "Log In"}
-            </button>
+            </Button>
 
             {/* Footer */}
             <p className="text-center text-sm text-gray-500 mt-6">
