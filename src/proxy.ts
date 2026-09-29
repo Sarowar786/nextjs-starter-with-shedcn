@@ -34,7 +34,6 @@ export function proxy(request: NextRequest) {
 // "Matching Paths"
 export const config = {
   matcher: [
-    "/booking",
-    "/booking/:path*",
+   
   ],
 };

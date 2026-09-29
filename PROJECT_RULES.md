@@ -8,12 +8,13 @@
 - No direct fetch in components
 
 ## UI Rules
-- Use shedcn component
-- Use shedcn Button component
+- Use shadcn component
+- Use shadcn Button component
 - Use existing FormInput component
 - Use existing FormSelect component
 - Use existing FormTextarea component
 - Use existing FormFileInput component
+- Use existing FormTimePicker component
 - Follow Tailwind utility classes
 
 ## Naming Convention
